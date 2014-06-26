@@ -33,6 +33,10 @@ public class Model {
 	
 	public Model(String str) {
 		super();
+		this.handleData(str);
+	}
+	
+	public void handleData(String str) {
 		try {
 			data = new JSONObject(str);
 		} catch (JSONException e) {
@@ -40,6 +44,10 @@ public class Model {
 			e.printStackTrace();
 			data = null;
 		}
+	}
+	
+	public String getId() {
+		return getString("id");
 	}
 	
 	public Integer getInt(String field) {
@@ -110,6 +118,10 @@ public class Model {
 	
 	public String toJSON() {
 		return data.toString();
+	}
+	
+	public void absorb(Model m) {
+		this.handleData(m.toJSON());
 	}
 	
 	private String parseKey(String key) {

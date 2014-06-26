@@ -1,28 +1,29 @@
 package com.productlab.quickwrap;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 public class QuickWrap {
 	
-	public static ImageLoader imageLoader;
 	public static Context context;
 	public static int progressLoadingID;
 	public static String seed = "myreallylongcryptoseedforencryption";
 	
+	public static int STATE_READY = 1;
+	public static int STATE_LOADING = 2;
+	
 	public static void initialize(Context c) {
-		imageLoader = new ImageLoader(c);
 		context = c;
 	}
 	
-	public static void notifyOverlay(Context context, String msg) {
+	public static void notifyOverlay(String msg) {
 		Toast t = Toast.makeText(context, msg, Toast.LENGTH_SHORT);
 		//t.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 0);
 		t.show();
@@ -82,6 +83,14 @@ public class QuickWrap {
 	public static void hideLoading(View rootView) {
 		ProgressBar prog = (ProgressBar)rootView.findViewById(progressLoadingID);
 		prog.setVisibility(View.GONE);
+	}
+	
+	public static void scrollToBottom(ListView view) {
+		view.setSelection(view.getCount() - 1);
+	}
+	
+	public static long nowTime() {
+		return Math.round(System.currentTimeMillis() / 1000.0);
 	}
 
 }
